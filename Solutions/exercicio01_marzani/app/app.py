@@ -1,17 +1,17 @@
 # Importando bibliotecas
 import os
 
-from flask                      import Flask, jsonify
-from threading                  import Thread
-from utils.response             import create_response
-from dotenv                     import load_dotenv
-from utils.listener             import ProcessSQSListener
+from flask import Flask, jsonify
+from threading import Thread
+from utils.response import create_response
+from dotenv import load_dotenv
+from utils.listener import ProcessSQSListener
 
 load_dotenv()
 
 app = Flask(__name__)
 
-# Defina rotas e funções para o blueprint
+# Criando rota de /health
 @app.route('/health', methods=['GET'])
 def health_check():
     # Chamando a função para criar uma resposta HTTP
@@ -19,7 +19,6 @@ def health_check():
 
 @app.route('/', methods=['GET'])
 def receive_message():
-    # return jsonify({'Application': 'Running Polling'}), 200
     return jsonify({'Application': 'Running Polling'}), 200
 
 

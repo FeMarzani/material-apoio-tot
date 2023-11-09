@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.8.6-alpine
 
 WORKDIR /app
 
@@ -8,4 +8,4 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 5000
 
-CMD ["gunicorn", "-w", "1", "app:app", "-b", "0.0.0.0:5000", "--access-logfile=-"]
+ENTRYPOINT ["./gunicorn.sh"]
