@@ -21,17 +21,3 @@ def read_message(sqs_client, queue_url: str) -> dict:
     except ClientError as err:
         logging.error(err)
         raise Exception(f"[SQS - read_message -> ()] Failed to get a message!\nError: {str(err)}")
-
-
-'''response = read_message(sqs_client, 'http://localhost:4566/000000000000/InputQueue.fifo')
-print(response)
-print(' ')
-body = response['Messages'][0]['Body']
-print(body)
-body = json.loads(body)
-print(' ')
-print(body['title'])
-print(body['genre'])'''
-
-
-# Exemplos acima de utilização do código. Pode começar a ser util para realizar a desserialização etc.

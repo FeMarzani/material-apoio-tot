@@ -14,8 +14,18 @@ app = Flask(__name__)
 # Criando rota de /health
 @app.route('/health', methods=['GET'])
 def health_check():
-    # Chamando a função para criar uma resposta HTTP
-    return create_response()
+
+    URL = os.getenv('URL')
+
+    # Formatando resposta da rota
+    resposta = requests.get(URL)
+    data = json.loads(resposta.text)
+    status_code = resposta.status_code
+
+    return {
+        "statusCode": status_code,
+        "body": data
+    }
 
 @app.route('/', methods=['GET'])
 def receive_message():
