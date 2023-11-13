@@ -3,7 +3,6 @@ import os
 
 from flask import Flask, jsonify
 from threading import Thread
-from utils.response import create_response
 from dotenv import load_dotenv
 from utils.listener import ProcessSQSListener
 
