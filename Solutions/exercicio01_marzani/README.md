@@ -69,5 +69,53 @@ Sendo que:
 
 O arquivo consiste da própria mensagem, em formato json e será salvo, com extensão no bucket referente ao gênero do mesmo.
 
-### Instalação:
-..................
+### Como instalar e rodar a aplicação:
+Baixe os arquivos do repositório pelo zip, ou clone o repositório.
+
+```bash
+git clone https://github.com/FeMarzani/material-apoio-tot.git
+```
+
+Navegue até a pasta de app, dentro do exercicio01_marzani que está na pasta de Solutions.
+```bash
+cd Solutions
+cd exercicio01_marzani
+cd app
+```
+
+Se desejar testar utilizando o localstack, tenha-o em execução e crie as seguintes filas e buckets:
+
+```sh
+#!/bin/sh
+
+# Create the buckets
+echo "Creating buckets ..."
+awslocal s3api create-bucket --bucket scifi
+awslocal s3api create-bucket --bucket romance
+
+# Create the queues using awslocal
+echo "Creating the queues ..."
+awslocal sqs create-queue --queue-name InputQueue.fifo --attributes FifoQueue=true
+awslocal sqs create-queue --queue-name OutputQueue.fifo --attributes FifoQueue=true
+```
+
+Agora build a imagem do docker e depois execute.
+
+```bash
+docker build -t app .
+```
+
+```bash
+docker run -p 5000:5000 -d app
+```
+
+A partir disso sua aplicação estará em funcionamento. Para testar se a mensagem será desserializada após o upload desta na fila SQS, envie uma mensagem a partir do modelo abaixo:
+
+```sh
+#!/bin/sh
+
+# Sends a message to the pdf-new queue
+echo "Sending a message to the InputQueue..."
+
+awslocal sqs send-message --queue-url http://localhost:4566/000000000000/InputQueue.fifo --message-group-id "test" --message-deduplication-id "test" --message-body '{"id": "1452345", "title":"Testando", "author": "John Doe", "year":"1960", "genre":"scifi", "summary":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}'
+```
