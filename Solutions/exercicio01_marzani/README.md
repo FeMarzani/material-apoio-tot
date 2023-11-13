@@ -83,6 +83,20 @@ cd exercicio01_marzani
 cd app
 ```
 
+Deseja setar as variáveis de ambiente? Para rodar a aplicação no docker utilizando localstack, use as variáveis do modelo abaixo:
+
+```
+URL=http://host.docker.internal:4566/health
+SQS_IN=http://host.docker.internal:4566/000000000000/InputQueue.fifo
+SQS_IN_NAME=InputQueue
+SQS_OUT_NAME=OutputQueue
+SQS_OUT=http://host.docker.internal:4566/000000000000/OutputQueue.fifo
+ENDPOINT_URL=http://host.docker.internal:4566/
+KEY_ID=test
+ACCESS_KEY=test
+REGION=us-east-1
+```
+
 Se desejar testar utilizando o localstack, tenha-o em execução e crie as seguintes filas e buckets:
 
 ```sh
