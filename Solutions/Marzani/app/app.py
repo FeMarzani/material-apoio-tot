@@ -1,12 +1,11 @@
 # Importando bibliotecas
-import os
 
 from flask import Flask, jsonify
 from threading import Thread
 from dotenv import load_dotenv
 from utils.listener import ProcessSQSListener
+from utils.write_env import *
 
-load_dotenv()
 
 app = Flask(__name__)
 
@@ -34,14 +33,12 @@ def receive_message():
 # Função de execução do listener.
 def process():
 
-    queue_url = os.getenv('SQS_IN')
-
-    process_listener = ProcessSQSListener('InputQueue',
-                                          endpoint_name=os.getenv('ENDPOINT_URL'),
-                                          aws_access_key=os.getenv('KEY_ID'),
-                                          aws_secret_key=os.getenv('ACCESS_KEY'),
+    process_listener = ProcessSQSListener(SQS_IN_NAME,
+                                          endpoint_name=ENDPOINT_URL,
+                                          aws_access_key=KEY_ID,
+                                          aws_secret_key=ACCESS_KEY,
                                           queue_url=queue_url,
-                                          region_name=os.getenv('REGION'),
+                                          region_name=REGION,
                                           force_delete=True)
     
     print("LISTEN EM EXECUÇÃO")
