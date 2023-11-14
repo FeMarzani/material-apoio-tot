@@ -37,7 +37,7 @@ def process():
                                           endpoint_name=ENDPOINT_URL,
                                           aws_access_key=KEY_ID,
                                           aws_secret_key=ACCESS_KEY,
-                                          queue_url=queue_url,
+                                          queue_url=SQS_IN,
                                           region_name=REGION,
                                           force_delete=True)
     

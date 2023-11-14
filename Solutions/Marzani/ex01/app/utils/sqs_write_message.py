@@ -1,9 +1,10 @@
 import uuid
 
-from utils.sqs_instance    import *
-from botocore.client       import ClientError
+from utils.sqs_instance import *
+from botocore.client import ClientError
+from utils.write_env import *
 
-sqs_client = instanciar_sqs()
+sqs_client = instantiate_client("sqs")
 
 # Função para escrever uma mensagem a uma fila SQS. Útil para disparar mensagem para a OutputQueue
 # Posteriormente ao processamento da InputQueue.

@@ -3,34 +3,36 @@ import json
 import os
 
 
-from dotenv                     import load_dotenv
-from utils.sqs_instance         import *
-from utils.s3_instance          import *
-from utils.s3_upload            import *
-from utils.sqs_read_message     import *
-from utils.sqs_write_message    import write_message
+from utils.write_env import *
+from utils.instantiate_client import *
+from utils.s3_upload import *
+from utils.sqs_read_message import *
+from utils.sqs_write_message import write_message
 
 logger = logging.getLogger()
 logger.setLevel(logging.WARNING)
 
+# Instanciando cliente s3
+s3_client = instantiate_client("s3")
+sqs_client = instantiate_client("sqs")
 
 # Função para a execução a partir do listener.
 def execute(event):
 
+    # Mensagens dos passos de execução no log. 
     logger.warning("Monitoramento fila SQS...")
 
     logger.warning(f"Events -> {event}, TYPE: {type(event)}")
 
     try:
-        s3_client = instanciar_s3()
 
         # Pegando o corpo da mensagem da InputQueue e fazendo o processamento.
 
         body = event
-        logger.warning(f"Mensagem recebida... -> {body}")
 
         logger.warning(f'Pacote de dadas recebido: {body}, TYPE: {type(body)}')
 
+        # Formatando o título do pacote de dados que será utilizado como nome do arquivo.
         file_name = body["title"] + ".json"
         logger.warning(f'Adquirido nome do arquivo a ser salvo: {file_name}')
 
@@ -40,6 +42,7 @@ def execute(event):
         bucket_name = genre
         logger.warning(f'Adquirido nome do bucket a ser salvo: {bucket_name}')
 
+        # Abrindo a estrutura do arquivo que estará no formato de json.
         with open(file_name, 'w') as file:
             json.dump(body, file)
 
@@ -56,7 +59,7 @@ def execute(event):
         # Adicionando função para escrever mensagem na outputqueue.fifo retornando a mensagem de sucesso ao 
             # Fazer upload do json no respectivo bucket.
 
-        write_message(sqs_client, os.getenv('SQS_OUT'), mensagem)
+        write_message(sqs_client, SQS_OUT, mensagem)
         logger.warning(f'Mensagem de sucesso com {file_name} e {bucket_name} disparada para a OutputQueue')
 
         # Adicionando função para remover o arquivo localmente e deixar apenas no bucket.
