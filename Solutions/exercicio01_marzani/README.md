@@ -2,16 +2,17 @@
 
 
 ### Ferramentas utilizadas:
-<div align="center">
-  <img align="center" alt="Python" height="30" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" />
-  <img align="center" alt="Git" height="28" width="42" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg">
-  <img align="center" alt="AWS" height="28" width="42" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/1024px-Amazon_Web_Services_Logo.svg.png" />
-  <img align="center" alt="localstack" height="28" width="42" src="https://localstack.cloud/images/header-logo-new.svg"/>
-  <img align="center" alt="Marzani-Flask" height="28" width="42" src="https://raw.githubusercontent.com/devicons/devicon/v2.15.1/icons/flask/flask-original-wordmark.svg">
-  <img align="center" alt="Marzani-Docker" height="28" width="42" src="https://icongr.am/devicon/docker-original.svg?size=148&color=00f030" />
-  <img align="center" alt="Gunicorn" height="28" width="42" src="https://gunicorn.org/images/logo.jpg" />
-  - PySQSListener
-</div>
+- Git;
+
+- Localstack;
+
+- Flask;
+
+- Docker;
+
+- Gunicorn;
+
+- PySQSListener.
 
 ### Descrição:
 - API Flask, com duas rotas não bloqueantes:    
